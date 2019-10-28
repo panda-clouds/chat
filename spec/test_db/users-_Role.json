@@ -1,0 +1,21 @@
+[{
+    "relatedId" : "katy",
+    "owningId" : "workerrole"
+},
+{
+    "relatedId" : "dan",
+    "owningId" : "workerrole"
+},
+{
+    "relatedId" : "daryl",
+    "owningId" : "workerrole"
+},
+{
+    "relatedId" : "wayne",
+    "owningId" : "adminrole"
+},
+{
+    "relatedId" : "mariefred",
+    "owningId" : "adminrole"
+}
+]

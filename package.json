@@ -1,0 +1,34 @@
+{
+  "name": "@panda-clouds/chat",
+  "scripts": {
+    "pretest": "eslint --fix .",
+    "test": "jest"
+  },
+  "description": "<description>",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/panda-clouds/chat.git"
+  },
+  "author": {
+    "name": "Marc Smith",
+    "email": "mr.marcsmith@me.com",
+    "url": "https://github.com/mrmarcsmith"
+  },
+  "license": "MIT",
+  "main": "src/PCChat.js",
+  "engines": {
+    "node": ">= 8"
+  },
+  "devDependencies": {
+    "@panda-clouds/eslint-config-panda-clouds": "^0.9.0",
+    "@panda-clouds/parse-runner": "^0.23.0",
+    "eslint-plugin-jest": "^22.6.4",
+    "jest": "^24.8.0"
+  },
+  "dependencies": {
+    "@panda-clouds/parse-data": "^0.6.0",
+    "@panda-clouds/parse-params": "^0.1.0",
+    "moment": "^2.24.0"
+  }
+}

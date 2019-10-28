@@ -1,0 +1,140 @@
+[{
+    "_id" : "katySession",
+    "_session_token" : "katySession",
+    "_p_user" : "_User$katy",
+    "createdWith" : {
+        "action" : "login",
+        "authProvider" : "password"
+    },
+    "restricted" : false,
+    "expiresAt" : "3000-01-01T01:01:01.001-07:00",
+    "installationId" : "fa8230cs-d91-2934-1029-120938741023",
+    "_created_at" : "2018-12-03T15:37:56.472-07:00",
+    "_updated_at" : "2018-12-03T15:37:56.472-07:00"
+},
+{
+    "_id" : "darylSession",
+    "_session_token" : "darylSession",
+    "_p_user" : "_User$daryl",
+    "createdWith" : {
+        "action" : "login",
+        "authProvider" : "password"
+    },
+    "restricted" : false,
+    "expiresAt" : "3000-01-01T01:01:01.001-07:00",
+    "installationId" : "fa8230cs-d91-2934-1029-120938741023",
+    "_created_at" : "2018-12-03T15:37:56.472-07:00",
+    "_updated_at" : "2018-12-03T15:37:56.472-07:00"
+},
+{
+    "_id" : "mcmurraySession",
+    "_session_token" : "mcmurraySession",
+    "_p_user" : "_User$mcmurray",
+    "createdWith" : {
+        "action" : "login",
+        "authProvider" : "password"
+    },
+    "restricted" : false,
+    "expiresAt" : "3000-01-01T01:01:01.001-07:00",
+    "installationId" : "fa8230cs-d91-2934-1029-120938741023",
+    "_created_at" : "2018-12-03T15:37:56.472-07:00",
+    "_updated_at" : "2018-12-03T15:37:56.472-07:00"
+},
+{
+    "_id" : "mrsmcmurraySession",
+    "_session_token" : "mrsmcmurraySession",
+    "_p_user" : "_User$mrsmcmurray",
+    "createdWith" : {
+        "action" : "login",
+        "authProvider" : "password"
+    },
+    "restricted" : false,
+    "expiresAt" : "3000-01-01T01:01:01.001-07:00",
+    "installationId" : "fa8230cs-d91-2934-1029-120938741023",
+    "_created_at" : "2018-12-03T15:37:56.472-07:00",
+    "_updated_at" : "2018-12-03T15:37:56.472-07:00"
+},
+{
+    "_id" : "wayneSession",
+    "_session_token" : "wayneSession",
+    "_p_user" : "_User$wayne",
+    "createdWith" : {
+        "action" : "login",
+        "authProvider" : "password"
+    },
+    "restricted" : false,
+    "expiresAt" : "3000-01-01T01:01:01.001-07:00",
+    "installationId" : "fa8230cs-d91-2934-1029-120938741023",
+    "_created_at" : "2018-12-03T15:37:56.472-07:00",
+    "_updated_at" : "2018-12-03T15:37:56.472-07:00"
+},
+{
+    "_id" : "mariefredSession",
+    "_session_token" : "mariefredSession",
+    "_p_user" : "_User$mariefred",
+    "createdWith" : {
+        "action" : "login",
+        "authProvider" : "password"
+    },
+    "restricted" : false,
+    "expiresAt" : "3000-01-01T01:01:01.001-07:00",
+    "installationId" : "fa8230cs-d91-2934-1029-120938741023",
+    "_created_at" : "2018-12-03T15:37:56.472-07:00",
+    "_updated_at" : "2018-12-03T15:37:56.472-07:00"
+},
+{
+    "_id" : "randySession",
+    "_session_token" : "randySession",
+    "_p_user" : "_User$randy",
+    "createdWith" : {
+        "action" : "login",
+        "authProvider" : "password"
+    },
+    "restricted" : false,
+    "expiresAt" : "3000-01-01T01:01:01.001-07:00",
+    "installationId" : "fa8230cs-d91-2934-1029-120938741023",
+    "_created_at" : "2018-12-03T15:37:56.472-07:00",
+    "_updated_at" : "2018-12-03T15:37:56.472-07:00"
+},
+{
+    "_id" : "lianeSession",
+    "_session_token" : "lianeSession",
+    "_p_user" : "_User$liane",
+    "createdWith" : {
+        "action" : "login",
+        "authProvider" : "password"
+    },
+    "restricted" : false,
+    "expiresAt" : "3000-01-01T01:01:01.001-07:00",
+    "installationId" : "fa8230cs-d91-2934-1029-120938741023",
+    "_created_at" : "2018-12-03T15:37:56.472-07:00",
+    "_updated_at" : "2018-12-03T15:37:56.472-07:00"
+},
+{
+    "_id" : "carolSession",
+    "_session_token" : "carolSession",
+    "_p_user" : "_User$carol",
+    "createdWith" : {
+        "action" : "login",
+        "authProvider" : "password"
+    },
+    "restricted" : false,
+    "expiresAt" : "3000-01-01T01:01:01.001-07:00",
+    "installationId" : "fa8230cs-d91-2934-1029-120938741023",
+    "_created_at" : "2018-12-03T15:37:56.472-07:00",
+    "_updated_at" : "2018-12-03T15:37:56.472-07:00"
+},
+{
+    "_id" : "shielaSession",
+    "_session_token" : "shielaSession",
+    "_p_user" : "_User$shiela",
+    "createdWith" : {
+        "action" : "login",
+        "authProvider" : "password"
+    },
+    "restricted" : false,
+    "expiresAt" : "3000-01-01T01:01:01.001-07:00",
+    "installationId" : "fa8230cs-d91-2934-1029-120938741023",
+    "_created_at" : "2018-12-03T15:37:56.472-07:00",
+    "_updated_at" : "2018-12-03T15:37:56.472-07:00"
+}]

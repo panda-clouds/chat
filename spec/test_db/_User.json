@@ -1,0 +1,88 @@
+[{
+    "_id" : "katy",
+    "email" : "katy@pandaclouds.com",
+    "username" : "katy@pandaclouds.com",
+    "firstName" : "Katy",
+    "lastName" : "Campbell",
+    "fullNameIndex" : "katycampbell"
+},
+{
+    "_id" : "daryl",
+    "email" : "daryl@pandaclouds.com",
+    "username" : "daryl@pandaclouds.com",
+    "firstName" : "Daryl",
+    "lastName" : "Na",
+    "fullNameIndex" : "darylna"
+},
+{
+    "_id" : "dan",
+    "email" : "dan@pandaclouds.com",
+    "username" : "dan@pandaclouds.com",
+    "firstName" : "Squirrely",
+    "lastName" : "Dan",
+    "fullNameIndex" : "squirrelydan"
+},
+{
+    "_id" : "shoresy",
+    "email" : "shoresy@pandaclouds.com",
+    "username" : "shoresy@pandaclouds.com",
+    "firstName" : "Mike",
+    "lastName" : "Shoresy",
+    "fullNameIndex" : "mikeshoresey"
+},
+{
+    "_id" : "wayne",
+    "email" : "wayne@pandaclouds.com",
+    "username" : "wayne@pandaclouds.com",
+    "firstName" : "Wayne",
+    "lastName" : "Campbell",
+    "fullNameIndex" : "waynecampbell"
+},
+{
+    "_id" : "mcmurray",
+    "email" : "mcmurray@pandaclouds.com",
+    "username" : "mcmurray@pandaclouds.com",
+    "firstName" : "",
+    "lastName" : "McMurray",
+    "fullNameIndex" : "mcmurray"
+},
+{
+    "_id" : "mariefred",
+    "email" : "mariefred@pandaclouds.com",
+    "username" : "mariefred@pandaclouds.com",
+    "firstName" : "Marie",
+    "lastName" : "Frederique",
+    "fullNameIndex" : "mariefrederique"
+},
+{
+    "_id" : "randy",
+    "email" : "randy@pandaclouds.com",
+    "username" : "randy@pandaclouds.com",
+    "firstName" : "Randy",
+    "lastName": "Marsh",
+    "fullNameIndex" : "randymarsh"
+},
+{
+    "_id" : "liane",
+    "email" : "liane@pandaclouds.com",
+    "username" : "liane@pandaclouds.com",
+    "firstName" : "Liane",
+    "lastName" : "Cartman",
+    "fullNameIndex" : "lianecartman"
+},
+{
+    "_id" : "carol",
+    "email" : "carolmccormick@pandaclouds.com",
+    "username" : "carolmccormick@pandaclouds.com",
+    "firstName" : "Carol",
+    "lastName" : "McCormick",
+    "fullNameIndex" : "carolmccormick"
+},
+{
+    "_id" : "shiela",
+    "email" : "sbrovlofski@pandaclouds.com",
+    "username" : "sbrovlofski@pandaclouds.com",
+    "firstName" : "Shiela",
+    "lastName" : "Brovlofski",
+    "fullNameIndex" : "shielabrovlofski"
+}]

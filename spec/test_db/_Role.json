@@ -1,0 +1,66 @@
+[{
+    "_id" : "workerrole",
+    "_rperm" : [
+        "*",
+        "role:AdminRole"
+    ],
+    "_wperm" : [
+        "role:AdminRole"
+    ],
+    "name" : "WorkerRole",
+    "_created_at" : "2016-10-27T20:05:07.181-07:00",
+    "_updated_at" : "2019-06-05T14:18:50.097-07:00",
+    "_acl" : {
+        "*" : {
+            "r" : true
+        },
+        "role:AdminRole" : {
+            "r" : true,
+            "w" : true
+        }
+    }
+},
+{
+    "_id" : "adminrole",
+    "_acl" : {
+        "*" : {
+            "r" : true
+        },
+        "role:AdminRole" : {
+            "r" : true,
+            "w" : true
+        }
+    },
+    "_rperm" : [
+        "*",
+        "role:AdminRole"
+    ],
+    "_wperm" : [
+        "role:AdminRole"
+    ],
+    "name" : "AdminRole",
+    "_created_at" : "2016-10-27T19:58:31.159-07:00",
+    "_updated_at" : "2019-06-05T14:13:49.808-07:00"
+},
+{
+    "_id" : "clientrole",
+    "_created_at" : "2016-10-27T20:04:09.433-07:00",
+    "_updated_at" : "2019-06-05T14:18:49.563-07:00",
+    "_acl" : {
+        "*" : {
+            "r" : true
+        },
+        "role:AdminRole" : {
+            "r" : true,
+            "w" : true
+        }
+    },
+    "_rperm" : [
+        "*",
+        "role:AdminRole"
+    ],
+    "_wperm" : [
+        "role:AdminRole"
+    ],
+    "name" : "ClientRole"
+}]
