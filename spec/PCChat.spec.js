@@ -11,7 +11,7 @@ try {
 const PCParseRunner = require('@panda-clouds/parse-runner');
 let Parse;
 
-describe('job test', () => {
+describe('chat test', () => {
 	const parseRunner = new PCParseRunner();
 
 	parseRunner.prefillMongo(async parseRunner => {
@@ -20,6 +20,10 @@ describe('job test', () => {
 	parseRunner.projectDir(__dirname + '/..');
 	parseRunner.injectCode(`
 const PCChat = require('./PCChat.js');
+
+Parse.Cloud.define('challenge', () => {
+	return 'everest';
+});
 
 Parse.Cloud.define('createConversation', async request => {
 	const result = await PCChat.createConversation(request);
@@ -60,7 +64,7 @@ Parse.Cloud.define('getMessages', async request => {
 		const query = new Parse.Query('_User');
 		const result = await query.find({ useMasterKey: true });
 
-		expect(result.length).toBeGreaterThanOrEqual(14);
+		expect(result.length).toBeGreaterThanOrEqual(10);
 	});
 
 	it('should connect to parse server', async () => {
@@ -71,13 +75,45 @@ Parse.Cloud.define('getMessages', async request => {
 		expect(result).toBe('everest');
 	});
 
-	it.todo('should do session tokens');
+	describe('sessionTokens', () => {
+		it('should block rando from randys email', async () => {
+			expect.assertions(1);
+
+			const query = new Parse.Query('_User');
+
+			query.equalTo('objectId', 'randy');
+			const result = await query.first();
+
+			// should NOT see email
+			expect(result.get('email')).toBeUndefined();
+		});
+
+		it('should get all the tokens', async () => {
+			expect.assertions(1);
+
+			const result = await parseRunner.find('_Session', {});
+
+			expect(result).toBeDefined();
+		});
+
+		it('should allow randy to see his email', async () => {
+			expect.assertions(1);
+
+			const query = new Parse.Query('_User');
+
+			query.equalTo('objectId', 'randy');
+			const result = await query.first({ sessionToken: 'randySession' });
+
+			// should have email
+			expect(result.get('email')).toBe('randy@pandaclouds.com');
+		});
+	});
 
 	let psst = null;
 	let howareyanow = null;
 	let goodnyou = null;
 
-	fdescribe('createConversation', () => {
+	describe('createConversation', () => {
 		it('should error for param not defined', async () => {
 			expect.assertions(1);
 
@@ -113,7 +149,7 @@ Parse.Cloud.define('getMessages', async request => {
 		it('should create a group conversation', async () => {
 			expect.assertions(3);
 
-			const created = await Parse.Cloud.run('createConversation', { users: ['randy'], groups: ['ApprovedQueenBee'], text: 'i\'d have a scrap?' }, { sessionToken: 'randySession' });
+			const created = await Parse.Cloud.run('createConversation', { users: ['randy'], groups: ['AdminRole'], text: 'i\'d have a scrap?' }, { sessionToken: 'randySession' });
 
 			expect(created).toBeDefined();
 
@@ -131,7 +167,7 @@ Parse.Cloud.define('getMessages', async request => {
 		it('should create another group conversation', async () => {
 			expect.assertions(3);
 
-			const created = await Parse.Cloud.run('createConversation', { users: ['randy'], groups: ['ApprovedSitter'], text: 'i\'d have a scrap?' }, { sessionToken: 'randySession' });
+			const created = await Parse.Cloud.run('createConversation', { users: ['randy'], groups: ['WorkerRole'], text: 'i\'d have a scrap?' }, { sessionToken: 'randySession' });
 
 			expect(created).toBeDefined();
 
@@ -149,7 +185,7 @@ Parse.Cloud.define('getMessages', async request => {
 		it('should create a multi group conversation.', async () => {
 			expect.assertions(3);
 
-			const created = await Parse.Cloud.run('createConversation', { users: ['randy'], groups: ['ApprovedSitter', 'ApprovedQueenBee'], text: 'i\'d have a scrap?' }, { sessionToken: 'randySession' });
+			const created = await Parse.Cloud.run('createConversation', { users: ['randy'], groups: ['WorkerRole', 'AdminRole'], text: 'i\'d have a scrap?' }, { sessionToken: 'randySession' });
 
 			expect(created).toBeDefined();
 
@@ -169,7 +205,7 @@ Parse.Cloud.define('getMessages', async request => {
 		it('should make a group message with just the group', async () => {
 			expect.assertions(2);
 
-			const created = await Parse.Cloud.run('createConversation', { users: [], groups: ['ApprovedQueenBee'], text: 'let me make a call.' }, { sessionToken: 'wayneSession' });
+			const created = await Parse.Cloud.run('createConversation', { users: [], groups: ['AdminRole'], text: 'let me make a call.' }, { sessionToken: 'wayneSession' });
 
 			expect(created).toBeDefined();
 
@@ -186,10 +222,10 @@ Parse.Cloud.define('getMessages', async request => {
 			await expect(Parse.Cloud.run('createConversation', { users: ['randy', 'katy'], groups: [], text: 'not up in here!' }, { sessionToken: 'wayneSession' })).rejects.toThrow('Object not found.');
 		});
 
-		it('should not let randy start a conversation with the queen bees', async () => {
+		it('should not let randy start a conversation with the admins', async () => {
 			expect.assertions(1);
 
-			await expect(Parse.Cloud.run('createConversation', { users: [], groups: ['ApprovedQueenBee'], text: 'not up in here!' }, { sessionToken: 'randySession' })).rejects.toThrow('Object not found.');
+			await expect(Parse.Cloud.run('createConversation', { users: [], groups: ['AdminRole'], text: 'not up in here!' }, { sessionToken: 'randySession' })).rejects.toThrow('Object not found.');
 		});
 	});
 
@@ -306,7 +342,7 @@ Parse.Cloud.define('getMessages', async request => {
 			let query = new Parse.Query('_User');
 			let result = await query.find({ useMasterKey: true });
 
-			expect(result.length).toBeGreaterThanOrEqual(14);
+			expect(result.length).toBeGreaterThanOrEqual(10);
 
 			for (let i = 0; i < test_db.length; ++i) {
 				test_db[i].obj_id = await Parse.Cloud.run('createConversation', { users: test_db[i].members, groups: test_db[i].groups, text: 'oh hello' }, { sessionToken: test_db[i].sessionToken });
@@ -340,17 +376,17 @@ Parse.Cloud.define('getMessages', async request => {
 		it('should error for truncateMessage out of bounds', async () => {
 			expect.assertions(2);
 
-			await expect(Parse.Cloud.run('getConversations', { limit: 12, truncateMessage: 1, truncateTitle: 20 }, { sessionToken: 'randySession' })).rejects.toThrow('Param out of bounds');
+			await expect(Parse.Cloud.run('getConversations', { limit: 12, truncateMessage: 1, truncateTitle: 20 }, { sessionToken: 'randySession' })).rejects.toThrow('Value out of bounds');
 
-			await expect(Parse.Cloud.run('getConversations', { limit: 12, truncateMessage: 100000, truncateTitle: 20 }, { sessionToken: 'randySession' })).rejects.toThrow('Param out of bounds');
+			await expect(Parse.Cloud.run('getConversations', { limit: 12, truncateMessage: 100000, truncateTitle: 20 }, { sessionToken: 'randySession' })).rejects.toThrow('Value out of bounds');
 		});
 
 		it('should error for truncateTitle out of bounds', async () => {
 			expect.assertions(2);
 
-			await expect(Parse.Cloud.run('getConversations', { limit: 12, truncateMessage: 20, truncateTitle: 2 }, { sessionToken: 'randySession' })).rejects.toThrow('Param out of bounds');
+			await expect(Parse.Cloud.run('getConversations', { limit: 12, truncateMessage: 20, truncateTitle: 2 }, { sessionToken: 'randySession' })).rejects.toThrow('Value out of bounds');
 
-			await expect(Parse.Cloud.run('getConversations', { limit: 12, truncateMessage: 20, truncateTitle: 200000 }, { sessionToken: 'randySession' })).rejects.toThrow('Param out of bounds');
+			await expect(Parse.Cloud.run('getConversations', { limit: 12, truncateMessage: 20, truncateTitle: 200000 }, { sessionToken: 'randySession' })).rejects.toThrow('Value out of bounds');
 		});
 
 		it('should grab 2 results for randy', async () => {
@@ -420,7 +456,7 @@ Parse.Cloud.define('getMessages', async request => {
 			const result = await Parse.Cloud.run('getConversations', { limit: 12, truncateMessage: 20, truncateTitle: 60 }, { sessionToken: 'mariefredSession' });
 
 			expect(result).toBeDefined();
-			expect(result.c[1].t).toBe('ApprovedQueenBee');
+			expect(result.c[1].t).toBe('AdminRole');
 		});
 
 		it('should be able to do multi role', async () => {
@@ -456,7 +492,7 @@ Parse.Cloud.define('getMessages', async request => {
 			const query = new Parse.Query('_User');
 			const result = await query.find({ useMasterKey: true });
 
-			expect(result.length).toBeGreaterThanOrEqual(14);
+			expect(result.length).toBeGreaterThanOrEqual(10);
 
 			// set up the clock.
 			clock = SpecConstants.dawn_of_time('moment');

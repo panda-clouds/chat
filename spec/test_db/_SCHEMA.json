@@ -5,4 +5,14 @@
 	"email" : "string",
 	"username" : "string",
 	"fullNameIndex" : "string"
+},
+{
+	"_id" : "_Session",
+	"user" : "*_User"
+},
+{
+	"_id" : "_Role",
+	"name" : "string",
+	"roles" : "relation<_Role",
+	"users" : "relation<_User"
 }]

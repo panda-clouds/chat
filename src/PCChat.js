@@ -190,7 +190,7 @@ class PCChat {
 		ParamsUtil.boundsCheck(request.params.limit, { lower: 1 });
 
 		// let's find the converstation if we can.
-		const convo_query = new Parse.Query('Message');
+		const convo_query = new Parse.Query('Conversation');
 		const conversation =  await convo_query.get(request.params.conversationId, PCData.pass(request));
 
 		// let's get some messages.
