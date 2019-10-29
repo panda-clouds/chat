@@ -58,3 +58,17 @@ Parse.Cloud.define('mainDoesntHasWhitespace', () => {
 
 	return PCString.hasWhitespace('no');
 });
+
+
+Parse.Cloud.define('pushHelloToAll', async () => {
+	const inst_query = new Parse.Query(Parse.Installation);
+
+	await Parse.Push.send({
+		where: inst_query,
+		data: {
+			alert: 'Hello',
+		},
+	}, { useMasterKey: true });
+
+	return 'sent';
+});

@@ -1,11 +1,9 @@
 
-const PCParseRunner = require('../src/PCParseRunner.js');
+const PCParseRunner = require('../../src/PCParseRunner.js');
 let Parse;
 
 describe('full project', () => {
 	const parseRunner = new PCParseRunner();
-
-	parseRunner.parseVersion('3.1.3');
 
 	parseRunner.prefillMongo(async parseRunner => {
 		const schema = {

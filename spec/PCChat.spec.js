@@ -305,31 +305,26 @@ Parse.Cloud.define('getMessages', async request => {
 				members: ['katy', 'shiela'],
 				groups: [],
 				sessionToken: 'katySession',
-				obj_id: 'null',
 			},
 			{
 				members: ['katy', 'randy'],
 				groups: [],
 				sessionToken: 'katySession',
-				obj_id: 'null',
 			},
 			{
 				members: ['dan', 'daryl', 'randy'],
 				groups: [],
 				sessionToken: 'randySession',
-				obj_id: 'null',
 			},
 			{
 				members: [],
 				groups: ['AdminRole'],
 				sessionToken: 'wayneSession',
-				obj_id: 'null',
 			},
 			{
 				members: [],
 				groups: ['AdminRole', 'WorkerRole'],
 				sessionToken: 'wayneSession',
-				obj_id: 'null',
 			},
 		];
 
@@ -345,7 +340,9 @@ Parse.Cloud.define('getMessages', async request => {
 			expect(result.length).toBeGreaterThanOrEqual(10);
 
 			for (let i = 0; i < test_db.length; ++i) {
-				test_db[i].obj_id = await Parse.Cloud.run('createConversation', { users: test_db[i].members, groups: test_db[i].groups, text: 'oh hello' }, { sessionToken: test_db[i].sessionToken });
+				const obj = test_db[i];
+
+				obj.obj_id = await Parse.Cloud.run('createConversation', { users: test_db[i].members, groups: test_db[i].groups, text: 'oh hello' }, { sessionToken: test_db[i].sessionToken });
 			}
 
 			// got conversations?
@@ -481,7 +478,7 @@ Parse.Cloud.define('getMessages', async request => {
 			};
 		});
 		let convo_id = null;
-		let clock = null;
+		let clock_offset = 0;
 
 		it('should set up the test env', async () => {
 			expect.assertions(22);
@@ -495,8 +492,7 @@ Parse.Cloud.define('getMessages', async request => {
 			expect(result.length).toBeGreaterThanOrEqual(10);
 
 			// set up the clock.
-			clock = SpecConstants.dawn_of_time('moment');
-			await parseRunner.setClock(clock);
+			await parseRunner.setClock(SpecConstants.dawn_of_time('moment'));
 
 			// make a conversation.
 			convo_id = await Parse.Cloud.run('createConversation', { users: ['wayne', 'katy'], groups: [], text: 'how are ya now' }, { sessionToken: 'wayneSession' });
@@ -505,9 +501,10 @@ Parse.Cloud.define('getMessages', async request => {
 
 			// send some messages.
 			for (let i = 0; i < 20; ++i) {
-				// advance the clock a bit.
-				clock = clock.add(5, 'm');
-				await parseRunner.setClock(clock);
+				clock_offset += 5;
+
+				// advance the clock a bit
+				await parseRunner.setClock(SpecConstants.dawn_of_time('moment').add(clock_offset, 'm'));
 
 				const text = 'some text to fill it out ' + i;
 				const result = await Parse.Cloud.run('sendMessage', { conversationId: convo_id, text: text }, { sessionToken: i % 2 === 0 ? 'katySession' : 'wayneSession' });
@@ -574,7 +571,7 @@ Parse.Cloud.define('getMessages', async request => {
 			const params = default_params();
 
 			params.conversationId = convo_id;
-			params.endTime = clock.subtract(4, 'm').toDate();
+			params.endTime = SpecConstants.dawn_of_time('moment').add(clock_offset - 4, 'm').toDate();
 
 			const result = await Parse.Cloud.run('getMessages', params, { sessionToken: 'katySession' });
 
@@ -589,7 +586,7 @@ Parse.Cloud.define('getMessages', async request => {
 			const params = default_params();
 
 			params.conversationId = convo_id;
-			params.endTime = clock.subtract(4, 'y').toDate();
+			params.endTime = SpecConstants.dawn_of_time('moment').subtract(4, 'y').toDate();
 
 			const result = await Parse.Cloud.run('getMessages', params, { sessionToken: 'katySession' });
 

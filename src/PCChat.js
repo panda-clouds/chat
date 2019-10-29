@@ -39,12 +39,14 @@ class PCChat {
 		conversation = await conversation.save(null, PCData.pass(request));
 
 		// edit the params for the next call.
-		request.params = {
+		const new_request = request;
+
+		new_request.params = {
 			conversationId: conversation.id,
 			text: request.params.text,
 		};
 
-		await this.sendMessage(request);
+		await this.sendMessage(new_request);
 
 		return conversation.id;
 	}

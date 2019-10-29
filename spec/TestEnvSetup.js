@@ -18,11 +18,7 @@ class TestEnvSetup {
 		const classes = ['_SCHEMA', '_User', '_Role', '_Session'];
 
 		for (let i = 0; i < classes.length; ++i) {
-			try {
-				await this.addObjects(parseRunner, classes[i]);
-			} catch (e) {
-				throw e;
-			}
+			await this.addObjects(parseRunner, classes[i]);
 		}
 
 		// object joins
@@ -32,11 +28,7 @@ class TestEnvSetup {
 			const classname = '_Join:' + joins[i][0] + ':' + joins[i][1];
 			const filename = joins[i][0] + '-' + joins[i][1];
 
-			try {
-				await this.addObjects(parseRunner, classname, filename);
-			} catch (e) {
-				throw e;
-			}
+			await this.addObjects(parseRunner, classname, filename);
 		}
 	}
 }

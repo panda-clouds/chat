@@ -3,5 +3,6 @@
 coverage/*
 !coverage/coverage-summary.json
 jest_0/
+v8-compile-cache-0/
 .nyc_output/
 .nyc_cache/
