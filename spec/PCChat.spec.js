@@ -48,6 +48,12 @@ Parse.Cloud.define('getMessages', async request => {
 
 	return result;
 });
+
+Parse.Cloud.define('searchUsers', async request => {
+	const result = await PCChat.searchUsers(request);
+
+	return result;
+});
 `);
 
 	beforeAll(async () => {
@@ -622,6 +628,123 @@ Parse.Cloud.define('getMessages', async request => {
 			expect(result.c).toHaveLength(3);
 			expect(result.c[0].t).toContain('19');
 			expect(result.c[0].s.f).toBeDefined();
+		});
+	});
+
+	describe('searchUsers', () => {
+		it('should error for param not defined', async () => {
+			expect.assertions(1);
+
+			await expect(Parse.Cloud.run('searchUsers', {}, { useMasterKey: true })).rejects.toThrow('Param not defined');
+		});
+
+		it('should error for type mismatch', async () => {
+			expect.assertions(1);
+
+			await expect(Parse.Cloud.run('searchUsers', { searchStr: 12, limit: 10 }, { useMasterKey: true })).rejects.toThrow('Type mismatch');
+		});
+
+		it('should find wayne by himself', async () => {
+			expect.assertions(6);
+
+			const result = await Parse.Cloud.run('searchUsers', { searchStr: 'wayne', limit: 10 }, { sessionToken: 'randySession' });
+
+			expect(result.c).toBeDefined();
+			expect(result.c).toHaveLength(1);
+			expect(result.c[0].f).toBe('Wayne');
+			expect(result.c[0].i).toBe('wayne');
+			expect(result.c[0].l).toBe('Campbell');
+			expect(result.c[0].u).toBe('wayne@pandaclouds.com');
+		});
+
+		it('should find the campbells regardless of case', async () => {
+			expect.assertions(5);
+
+			const lower = await Parse.Cloud.run('searchUsers', { searchStr: 'campbell', limit: 10 }, { sessionToken: 'randySession' });
+
+			expect(lower.c).toBeDefined();
+			expect(lower.c).toHaveLength(2);
+			expect(lower.c[0].i).toBe('katy');
+
+			const upper = await Parse.Cloud.run('searchUsers', { searchStr: 'campbell', limit: 10 }, { sessionToken: 'randySession' });
+
+			expect(upper.c).toBeDefined();
+			expect(upper.c).toHaveLength(2);
+		});
+
+		it('should find no one if there are no matches', async () => {
+			expect.assertions(2);
+
+			const result = await Parse.Cloud.run('searchUsers', { searchStr: '404', limit: 10 }, { sessionToken: 'randySession' });
+
+			expect(result.c).toBeDefined();
+			expect(result.c).toHaveLength(0);
+		});
+
+		it('should find no one for empty string', async () => {
+			expect.assertions(2);
+
+			const result = await Parse.Cloud.run('searchUsers', { searchStr: '', limit: 10 }, { sessionToken: 'randySession' });
+
+			expect(result.c).toBeDefined();
+			expect(result.c).toHaveLength(0);
+		});
+	});
+
+	describe('helper', () => {
+		it('should give noor a hand', async () => {
+			expect.assertions(26);
+
+			// prep env
+			await parseRunner.dropDB();
+			await TestEnvSetup.addAll(parseRunner);
+
+			const query = new Parse.Query('_User');
+			const result = await query.find({ useMasterKey: true });
+
+			expect(result.length).toBeGreaterThanOrEqual(10);
+
+			// set up the clock.
+			await parseRunner.setClock(SpecConstants.dawn_of_time('moment'));
+
+			// create content
+			const convoa = await Parse.Cloud.run('createConversation', { users: ['testiemctestface', 'persona'], groups: [], text: 'hello a' }, { sessionToken: 'testiemctestfaceSession' });
+			const convob = await Parse.Cloud.run('createConversation', { users: ['testiemctestface', 'personb'], groups: [], text: 'hello testie' }, { sessionToken: 'personbSession' });
+
+			expect(convoa).toBeDefined();
+			expect(convob).toBeDefined();
+
+			let clock_offset = 0;
+
+			for (let i = 0; i < 20; ++i) {
+				clock_offset += 5;
+
+				await parseRunner.setClock(SpecConstants.dawn_of_time('moment').add(clock_offset, 'm'));
+
+				const text = 'some text to fill it out ' + i;
+				const result = await Parse.Cloud.run('sendMessage', { conversationId: convob, text: text }, { sessionToken: i % 2 === 0 ? 'testiemctestfaceSession' : 'personbSession' });
+
+				expect(result).toBeDefined();
+			}
+
+			// get stuff.
+			const getConvos = await Parse.Cloud.run('getConversations', { limit: 30, truncateMessage: 20, truncateTitle: 20 }, { sessionToken: 'testiemctestfaceSession' });
+
+			expect(getConvos).toBeDefined();
+
+			const getMsga = await Parse.Cloud.run('getMessages', { conversationId: convoa, endTime: null, limit: 100, y: 0 }, { sessionToken: 'testiemctestfaceSession' });
+			const getMsgb = await Parse.Cloud.run('getMessages', { conversationId: convob, endTime: null, limit: 100, y: 0 }, { sessionToken: 'testiemctestfaceSession' });
+
+			expect(getMsga).toBeDefined();
+			expect(getMsgb).toBeDefined();
+
+			// const search = await Parse.Cloud.run('searchUsers', { searchStr: 'person', limit: 10 }, { sessionToken: 'testiemctestfaceSession' });
+
+			// print stuff
+			// console.log(JSON.stringify(getConvos));
+			// console.log(JSON.stringify(search));
+			console.log(JSON.stringify(getMsga));
+			console.log(JSON.stringify(getMsgb));
 		});
 	});
 });

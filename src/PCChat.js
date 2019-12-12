@@ -221,6 +221,7 @@ class PCChat {
 				s: {
 					id: messages[i].get('senderPtr').id,
 				},
+				f: messages[i].get('senderPtr').id === request.user.id,
 				t: messages[i].get('text'),
 				w: messages[i].createdAt,
 			};
@@ -231,6 +232,56 @@ class PCChat {
 				entry.s.l = messages[i].get('senderPtr').get('lastName');
 				entry.s.i = 'todo.png';
 			}
+
+			ret_val.c.push(entry);
+		}
+
+		return ret_val;
+	}
+
+	static async searchUsers(request, verbose = false) {
+		const req = {
+			searchStr: 'string',
+			limit: 'number',
+		};
+
+		ParamsUtil.paramTypeCheck(request.params, req, verbose);
+
+		// create return value in case we need to return early.
+		const ret_val = { c: [] };
+
+		if (request.params.searchStr === '') {
+			return ret_val;
+		}
+
+		// lowercase the search string
+		request.params.searchStr = request.params.searchStr.toLowerCase();
+
+		// search full names and usernames.
+		const name_query = new Parse.Query('_User');
+
+		name_query.contains('fullNameIndex', request.params.searchStr);
+
+		const username_query = new Parse.Query('_User');
+
+		username_query.contains('username', request.params.searchStr);
+
+		// combine query
+		const query = Parse.Query.or(name_query, username_query);
+
+		query.select('id', 'firstName', 'lastName', 'username');
+		query.ascending('fullNameIndex');
+
+		const users = await query.find({ useMasterKey: true });
+
+		// turn the users into a return value
+		for (let i = 0; i < users.length; ++i) {
+			const entry = {
+				i: users[i].id,
+				f: users[i].get('firstName'),
+				l: users[i].get('lastName'),
+				u: users[i].get('username'),
+			};
 
 			ret_val.c.push(entry);
 		}

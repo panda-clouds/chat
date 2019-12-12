@@ -35,6 +35,18 @@
     "_p_user" : "_User$carol"
 },
 {
+    "_session_token" : "testiemctestfaceSession",
+    "_p_user" : "_User$testiemctestface"
+},
+{
+    "_session_token" : "personaSession",
+    "_p_user" : "_User$persona"
+},
+{
+    "_session_token" : "personbSession",
+    "_p_user" : "_User$personb"
+},
+{
     "_session_token" : "shielaSession",
     "_p_user" : "_User$shiela"
 }]

@@ -85,4 +85,28 @@
     "firstName" : "Shiela",
     "lastName" : "Brovlofski",
     "fullNameIndex" : "shielabrovlofski"
+},
+{
+    "_id" : "testiemctestface",
+    "email" : "testie@pandaclouds.com",
+    "username" : "testie@pandaclouds.com",
+    "firstName" : "Testie",
+    "lastName" : "McTestface",
+    "fullNameIndex" : "testiemctestface"
+},
+{
+    "_id" : "persona",
+    "email" : "persona@pandaclouds.com",
+    "username" : "persona@pandaclouds.com",
+    "firstName" : "Person",
+    "lastName" : "A",
+    "fullNameIndex" : "persona"
+},
+{
+    "_id" : "personb",
+    "email" : "personb@pandaclouds.com",
+    "username" : "personb@pandaclouds.com",
+    "firstName" : "Person",
+    "lastName" : "B",
+    "fullNameIndex" : "personb"
 }]
